@@ -6,6 +6,8 @@ const enter = document.querySelector("#enter");
 const text = document.querySelector("#numPixels");
 
 drawGrid();
+let boxes = grid.childNodes;
+boxes.forEach(box => box.addEventListener('mouseover', hovered));
 
 enter.addEventListener('click', drawGrid);
 
@@ -32,7 +34,6 @@ function drawGrid() {
             return;
         }
     }
-    initial = false;
     const height = 960 / size;
     const width = 960 / size;
 
@@ -45,10 +46,19 @@ function drawGrid() {
         newBox.style.width = `${width}px`;
         newBox.classList.add('box');
 
-        console.log(newBox.style.height);
+        /*console.log(newBox.style.height);
         console.log(newBox.style.width);
-
-        console.log(newBox);
+        console.log(newBox);*/
         grid.appendChild(newBox);
     }
+
+    if (!initial) { //if not initial startup
+        boxes = grid.childNodes;
+        boxes.forEach(box => box.addEventListener('mouseover', hovered));  
+    }
+    initial = false;
+}
+
+function hovered() {
+    this.style.background = 'grey';
 }
