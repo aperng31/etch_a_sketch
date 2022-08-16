@@ -1,15 +1,29 @@
+//initial dimension
 let size = 16;
 let initial = true;
+let penColor = 'black';
 
+//elements of grid, enter button, and entered desired size of grid
 const grid = document.querySelector(".grid");
 const enter = document.querySelector("#enter");
 const text = document.querySelector("#numPixels");
 
+//initial fill-in of grid
 drawGrid();
 let boxes = grid.childNodes;
-boxes.forEach(box => box.addEventListener('mouseover', hovered));
+boxes.forEach(box => box.addEventListener('mouseover', hovered)); //check when boxes are "mouseover"-ed
 
+//re-draw grid based on input dimensions
 enter.addEventListener('click', drawGrid);
+
+//functioning eraser button
+const clear = document.querySelector(".clear");
+clear.addEventListener('click', clearBoxes);
+
+//change color of pen
+const colorButton = document.querySelector('#colorButton');
+const colorPalette = document.querySelector('#colorChanger');
+colorButton.addEventListener('click', changeColor);
 
 function getNum() {
     let inputNum = Number(text.value);
@@ -46,9 +60,6 @@ function drawGrid() {
         newBox.style.width = `${width}px`;
         newBox.classList.add('box');
 
-        /*console.log(newBox.style.height);
-        console.log(newBox.style.width);
-        console.log(newBox);*/
         grid.appendChild(newBox);
     }
 
@@ -60,5 +71,13 @@ function drawGrid() {
 }
 
 function hovered() {
-    this.style.background = 'grey';
+    this.style.background = `${penColor}`;
+}
+
+function clearBoxes() {
+    boxes.forEach(box => box.style.background = 'white');
+}
+
+function changeColor() {
+    penColor = colorPalette.value;
 }
